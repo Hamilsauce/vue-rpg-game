@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <!-- css -->
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <title>Vue Game Char</title>
+  <script src='../db/lib/sql-browser.min.js'></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/7.3.0/rxjs.umd.min.js" integrity="sha512-y3JTS47nnpKORJX8Jn1Rlm+QgRIIZHtu3hWxal0e81avPrqUH48yk+aCi+gprT0RMAcpYa0WCkapxe+bpBHD6g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <link rel="stylesheet" href="style.css" type="text/css" media="all" />
+  <link rel="stylesheet" href="_style.css" type="text/css" media="all" />
+
+  <!-- libraries -->
+  <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
+  <script src="https://unpkg.com/dayjs@1.8.21/plugin/weekOfYear.js"></script>
+  <script src="https://unpkg.com/dayjs@1.8.21/plugin/weekday.js"></script>
+  <script>
+    dayjs.extend(window.dayjs_plugin_weekOfYear)
+    dayjs.extend(window.dayjs_plugin_weekday)
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.min.js"></script>
+  <script src="../vue/vuex2.0.js"></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/vue-router/2.2.1/vue-router.js'></script>
+</head>
+
+<body>
+  <div class="app" id="app" _delete-series="handleDeleteSeries" _click="handleMenuBlur">
+    <!-- <jeo-cat-list @new-game-created="addNewGame" :show-add-game-modal="showAddGameModal" @hide-add-game-modal="toggleAddGameModal" :selected="selectedSeries"></jeo-cat-list> -->
+    <!-- <smp-app-header :title="title"></smp-app-header> -->
+    <character-screen></character-screen>
+    <!-- <character-screen _equipment-slots="equipmentSlots"></character-screen> -->
+    <!-- Series List -->
+    <!-- <div class="series-list active-series-list"> -->
+    <!-- <div class="series-list-title">Active Series</div> -->
+    <!-- <div class="series-container">
+      <smp-series @add-game="toggleAddGameModal" v-for="series in series" :series-data="series"></smp-series>
+    </div>
+      </div> -->
+  </div>
+
+
+  <script src="app.js" type="module"></script>
+
+  <template id="selected-item-template">
+    <div class="selected-item">
+      <div class="selected-item-slot">
+        <inventory-item v-if="selectedItem" :item="selectedItem"></inventory-item>
+      </div>
+      <div class="selected-item-area">
+        <!-- <inventory-item v-if="selectedItem" :item="selectedItem"></inventory-item> -->
+      </div>
+      <!-- <h2>{{_currentShow}}</h2> -->
+      <!-- <div v-for="question in _currentShow">{{question.category}}</div> -->
+    </div>
+  </template>
+
+
+
+
+  <template id="character-screen-template">
+    <div id="character-screen">
+      <character-detail></character-detail>
+      <character-equipment :equipment-slots="equipmentSlots"></character-equipment>
+      <character-inventory></character-inventory>
+    </div>
+  </template>
+
+  <template id="inventory-item-template">
+    <div class="inventory-item" :data-item-type="item.itemType">
+      {{name}}
+      <!-- <div data-block-type="green" class="block" id="b1">
+      </div> -->
+    </div>
+  </template>
+
+  <template id="item-slot-template">
+    <div @click.capture.stop="handleClick" class="item-slot">
+      <div _data-block-type="green" class="slot" :data-slot-type="slot.itemType">
+        <div _data-block-type="green" class="label">{{slot.label}}</div>
+        <inventory-item v-if="hasItem" :item="currentItem" data-block-type="green" class="block" id="b1">
+        </inventory-item>
+      </div>
+    </div>
+  </template>
+
+  <template id="character-detail-template">
+    <div id="character-detail">
+      <div id="character-name">Trogdor</div>
+      <div id="character-stats">
+        <div id="character-health">
+          <div class="label">HP</div>
+          <div class="value">{{health}}</div>
+        </div>
+        <div id="character-damage">
+          <div class="label">DMG</div>
+          <div class="value">{{damage}}</div>
+        </div>
+        <div id="character-armor">
+          <div class="label">ARMOR</div>
+          <div class="value">{{defense}}</div>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <template id="character-equipment-template">
+    <div id="character-equipment">
+
+      <div class="container">
+        <item-slot @itemslot:click="handleSlotClick($event)" key="slot.id" v-for="slot in equipmentSlots" :slot="slot"></item-slot>
+      </div>
+    </div>
+  </template>
+
+  <template id="character-inventory-template">
+    <div id="character-inventory">
+      <div id="character-inventory-slots" class="container">
+        <item-slot @itemslot:click="handleSlotClick($event)" key="slot.id" v-for="slot in inventorySlots" :slot="slot"></item-slot>
+      </div>
+      <!-- <div id="selected-item"></div> -->
+      <selected-item></selected-item>
+    </div>
+  </template>
+
+
+</body>
+
+</html>
