@@ -12,6 +12,7 @@ const DEFAULT_STATE = () => ({
   isDefaultInventory: true,
   selectedItemId: null,
   character: {
+    name: 'Poop Dog',
     stats: DEFAULT_STATS(),
     inventory: {
       slots: [
@@ -149,10 +150,11 @@ const storeObj = {
 
     initializeInventory({ getters, state }) {
       if (!state.isDefaultInventory) return;
-  
+
       getters.unequippedItems.forEach((item, i) => {
         const slot = state.character.inventory.slots[i]
-        if (item.id === state.selectedItemId || +slot.currentItem) return
+        
+        if (item.id === state.selectedItemId || +slot.currentItem) return;
 
         state.character.inventory.slots[i].currentItem = item.id;
       });
@@ -160,21 +162,16 @@ const storeObj = {
       state.isDefaultInventory = false;
     },
 
-    saveToLocalStorage({ state }) {
-      localStorage.setItem(LOCAL_STORE_KEY, JSON.stringify(state));
-    }
+    saveToLocalStorage({ state }) { localStorage.setItem(LOCAL_STORE_KEY, JSON.stringify(state)); }
   },
 
   getters: {
-    inventorySlots(state) {
-      return state.character.inventory.slots;
-    },
-    equipmentSlots(state) {
-      return state.character.equipmentSlots;
-    },
-    inventoryItems(state) {
-      return state.character.inventory.items;
-    },
+    inventorySlots(state) { return state.character.inventory.slots; },
+
+    equipmentSlots(state) { return state.character.equipmentSlots; },
+
+    inventoryItems(state) { return state.character.inventory.items; },
+
     equippedItems(state) {
       return state.character.inventory.items
         .filter(item =>
@@ -182,24 +179,29 @@ const storeObj = {
           item.id !== state.selectedItemId
         );
     },
+
     unequippedItems(state) {
       const unequippedItems = state.character.inventory.items.filter(
         item => state.character.equipmentSlots.every(_ => _.currentItem !== item.id) &&
         item.id !== state.selectedItemId);
-      console.log('unequippedItems', unequippedItems)
+
       return unequippedItems
     },
 
     selectedItem(state, getters) {
-      return state.character.inventory.items
-        .find(_ => _.id === state.selectedItemId);
-      // return state.character.inventory.items.find(_ => _.id === state.selectedItemId);
+      return state.character.inventory.items.find(_ => _.id === state.selectedItemId);
     },
+
     // selectedItemId(state) {
     //   return state.itemSelectionStack.peek();
     // },
-    stats(state, getters, actions) {
+
+    stats(state) {
       return state.character.stats;
+    },
+
+    characterName(state) {
+      return state.character.name;
     }
   }
 };

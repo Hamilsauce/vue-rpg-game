@@ -30,6 +30,5 @@ export const CharacterInventory = {
   },
   mounted() {
     store.dispatch('initializeInventory');
-    console.log('CharacterInventory mount', this);
   }
 }

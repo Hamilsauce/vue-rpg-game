@@ -9,16 +9,16 @@ export const CharacterDetail = {
       stats: store.getters.stats,
     }
   },
-  methods: {},
+  methods: {
+    handlePropChange(e) {
+      console.log('handlePropChange', { e })
+    }
+  },
   computed: {
-    health() {
-      console.log('health in detail' , this.stats.health);
-      return this.stats.health
-    },
+    name() { return store.getters.characterName },
+    health() { return this.stats.health },
     damage() { return this.stats.damage },
     defense() { return this.stats.defense },
   },
-  mounted() {
-    console.log('CharacterDetail mounted, this.stats', this.stats);
-  }
+  mounted() {}
 }

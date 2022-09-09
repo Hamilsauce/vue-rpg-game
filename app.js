@@ -1,17 +1,27 @@
 import { store } from './store/index.js';
+import { routerModule } from './router/index.js';
 // import eventBus from './services/EventBus.js';
 
 import {
+  LandingScreen,
   CharacterScreen,
   CharacterInventory,
   CharacterEquipment,
   CharacterDetail,
   InventoryItem,
   SelectedItem,
-  ItemSlot
+  ItemSlot,
+  AppShell,
+  BottomBar,
+  EditableProperty,
 } from './components/index.js';
 
-const characterScreen = Vue.component('character-screen', CharacterScreen);
+
+const bottomBar = Vue.component('bottom-bar', BottomBar);
+const appShell = Vue.component('app-shell', AppShell);
+const editableProperty = Vue.component('editable-property', EditableProperty);
+
+const landingScreen = Vue.component('landing-screen', LandingScreen);
 const characterInventory = Vue.component('character-inventory', CharacterInventory);
 const characterEquipment = Vue.component('character-equipment', CharacterEquipment);
 const characterDetail = Vue.component('character-detail', CharacterDetail);
@@ -19,40 +29,20 @@ const inventoryItem = Vue.component('inventory-item', InventoryItem);
 const selectedItem = Vue.component('selected-item', SelectedItem);
 const itemSlot = Vue.component('item-slot', ItemSlot);
 
+const router = new VueRouter(routerModule)
 
 const app = new Vue({
+  router: router,
   data() {
-    return {
-      // equipmentSlots: [
-      //   { id: 0, label: 'Head 1', type: 'gear', currentItem: null },
-      //   { id: 1, label: 'Helmut', type: 'armor', currentItem: null },
-      //   { id: 3, label: 'Head 2', type: 'gear', currentItem: null },
-      //   { id: 3, label: 'Shield', type: 'armor', currentItem: null },
-      //   { id: 4, label: 'Armor', type: 'armor', currentItem: null },
-      //   { id: 5, label: 'Weapon', type: 'weapon', currentItem: null },
-      //   { id: 6, label: 'Aux 1', type: 'gear', currentItem: null },
-      //   { id: 7, label: 'Boots', type: 'armor', currentItem: null },
-      //   { id: 8, label: 'Aux 2', type: 'gear', currentItem: null },
-      // ],
-    }
+    return {}
   },
   computed: {
-    // equipmentSlots() { return; },
     // db() { return store.getters.db; },
-    // currentShow() { return store.getters.currentShow; }
   },
   created() {
-    // store.dispatch('connectToDb')
     // console.log('app mounted', this);
   },
-  mounted() {
-    setTimeout(() => {
-      // store.dispatch('selectShowByDate', { date: '2004-12-31' })
-
-    }, 1000)
-    // console.log('app mounted', this);
-  }
-
+  mounted() {}
 }).$mount('#app')
 
 // const router = new VueRouter({

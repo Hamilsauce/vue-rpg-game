@@ -1,9 +1,13 @@
 // import Vue from '../.vue/vue.js';
 // import Router from '../.vue/vue-router.js';
-import {CardView,AddShiftView} from '../app.js';
-
+// import * as components from '../components/index.js';
+// console.warn('components', components)
 // // Vue.use(Router);
 
+import {
+  CharacterScreen,
+  LandingScreen,
+} from '../components/index.js';
 
 // // const router = new VueRouter({
 // export const router = new VueRouter({
@@ -18,21 +22,28 @@ import {CardView,AddShiftView} from '../app.js';
 
 
 export const routerModule = {
-	routes: [{
-			path: '/',
-			component: CardView,
-			name: 'card-view',
-			props: true
+  routes: [
+    {
+      path: '/',
+      component: LandingScreen,
+      name: 'landing-screen',
+      // props: true
 		},
-		{
-			path: '/add-shift-view',
-			component: AddShiftView,
-			name: 'add-shift-view',
-			props: true
+    {
+      path: '/character',
+      component: CharacterScreen,
+      name: 'character-screen',
+      // props: true
 		},
+  //   {
+  //     path: '/add-shift-view',
+  //     component: AddShiftView,
+  //     name: 'add-shift-view',
+  //     props: true
+		// },
 	]
 };
 
 {
-	routerModule
+  routerModule
 }

@@ -31,22 +31,21 @@
 </head>
 
 <body>
-  <div class="app" id="app" _delete-series="handleDeleteSeries" _click="handleMenuBlur">
-    <!-- <jeo-cat-list @new-game-created="addNewGame" :show-add-game-modal="showAddGameModal" @hide-add-game-modal="toggleAddGameModal" :selected="selectedSeries"></jeo-cat-list> -->
-    <!-- <smp-app-header :title="title"></smp-app-header> -->
-    <character-screen></character-screen>
-    <!-- <character-screen _equipment-slots="equipmentSlots"></character-screen> -->
-    <!-- Series List -->
-    <!-- <div class="series-list active-series-list"> -->
-    <!-- <div class="series-list-title">Active Series</div> -->
-    <!-- <div class="series-container">
-      <smp-series @add-game="toggleAddGameModal" v-for="series in series" :series-data="series"></smp-series>
-    </div>
-      </div> -->
-  </div>
+
+  <main class="app" id="app">
+    <app-shell></app-shell>
+    <!-- <character-screen></character-screen> -->
+
+    <!--  <character-detail></character-detail>
+     <character-equipment :equipment-slots="equipmentSlots"></character-equipment>
+     <character-inventory></character-inventory> -->
+
+  </main>
 
 
   <script src="app.js" type="module"></script>
+
+
 
   <template id="selected-item-template">
     <div class="selected-item">
@@ -72,6 +71,33 @@
     </div>
   </template>
 
+  <template id="landing-screen-template">
+    <div id="landing-screen">
+      <div>
+        LANDING
+      </div>
+    </div>
+  </template>
+
+
+
+  <template id="bottom-bar-template">
+    <div id="bottom-bar">
+      BottomBar
+    </div>
+  </template>
+
+  <template id="editable-property-template">
+    <input class="editable-property" type="text" v-model="value"/>
+  </template>
+
+  <template id="app-shell-template">
+    <div id="app-shell">
+      <router-view></router-view>
+      <bottom-bar></bottom-bar>
+    </div>
+  </template>
+
   <template id="inventory-item-template">
     <div class="inventory-item" :data-item-type="item.itemType">
       {{name}}
@@ -92,7 +118,8 @@
 
   <template id="character-detail-template">
     <div id="character-detail">
-      <div id="character-name">Trogdor</div>
+      <div id="character-name"></div>
+      <editable-property @editableproperty:change="handlePropChange($event)" id="character-name" :name="name"></editable-property>
       <div id="character-stats">
         <div id="character-health">
           <div class="label">HP</div>
@@ -112,15 +139,16 @@
 
   <template id="character-equipment-template">
     <div id="character-equipment">
-
       <div class="container">
         <item-slot @itemslot:click="handleSlotClick($event)" key="slot.id" v-for="slot in equipmentSlots" :slot="slot"></item-slot>
       </div>
+      <!-- <selected-item></selected-item> -->
     </div>
   </template>
 
   <template id="character-inventory-template">
     <div id="character-inventory">
+
       <div id="character-inventory-slots" class="container">
         <item-slot @itemslot:click="handleSlotClick($event)" key="slot.id" v-for="slot in inventorySlots" :slot="slot"></item-slot>
       </div>

@@ -14,6 +14,5 @@ export const InventoryItem = {
     name() { return this.item.name || 'poop' }
   },
   mounted() {
-    console.log('inventory-item mounted', this);
   }
 }

@@ -1,4 +1,4 @@
-import {store} from '../store/index.js'
+import { store } from '../store/index.js'
 
 export const SelectedItem = {
   name: 'selected-item',
@@ -11,9 +11,7 @@ export const SelectedItem = {
   },
   methods: {},
   computed: {
-  selectedItem() { return store.getters.selectedItem }
+    selectedItem() { return store.getters.selectedItem }
   },
-  mounted() {
-    console.log('selected-item mounted', this);
-  }
+  mounted() {}
 }

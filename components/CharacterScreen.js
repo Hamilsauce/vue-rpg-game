@@ -16,9 +16,7 @@ export const CharacterScreen = {
   },
   methods: {},
   computed: {
-    
+
   },
-  mounted() {
-    console.log('CharacterScreen moubted', this);
-  }
+  mounted() {}
 }
