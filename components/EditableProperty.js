@@ -1,28 +1,53 @@
 import { store } from '../store/index.js'
 
-export const EditableProperty = {
+export const EditableProperty = Vue.component('editable-property',{
   name: 'editable-property',
   template: '#editable-property-template',
   props: {
     name: String,
+    value: null,
   },
   data() {
     return {
-      value: null,
+      prop: this.value,
+      editable: false,
     }
   },
   methods: {
-    handleClick() {
-      this.$emit('editableproperty:change', {
+    handleClick(e) {
+      const targ = e.target;
+      console.log('targ.classList.contains(editable-property-confirm)', targ.classList.contains('editable-property-confirm'))
+      console.log('this.editable', this.editable)
+
+      if (!this.editable) {
+        this.editable = true;
+
+        setTimeout(() => targ.focus(), 0)
+      }
+      if (this.editable && targ.classList.contains('editable-property-confirm')) {
+        this.editable = false;
+
+        this.$emit('editable-property-change', {
+          name: this.name,
+          value: this.prop,
+        })
+      };
+    },
+
+    handleInput() {
+      this.$emit('editable-property-change', {
         name: this.name,
-        value: this.value,
+        value: this.prop,
       })
     }
   },
   computed: {
-    // currentItem() {
-    //   return store.getters.inventoryItems.find(_ => _.id === this.currentItemId)
-    // }
+    isEditable() {
+      return this.editable
+    }
+
   },
-  mounted() {}
-}
+  mounted() {
+    this.editable = false;
+  }
+})

@@ -1,6 +1,6 @@
 import { store } from '../store/index.js'
 
-export const CharacterInventory = {
+export const CharacterInventory = Vue.component('character-inventory',{
   name: 'character-inventory',
   template: '#character-inventory-template',
   props: {},
@@ -31,4 +31,4 @@ export const CharacterInventory = {
   mounted() {
     store.dispatch('initializeInventory');
   }
-}
+});

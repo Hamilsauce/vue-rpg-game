@@ -1,10 +1,9 @@
 import { store } from '../../store/index.js'
 
-export const AppShell = {
+export const AppShell = Vue.component('app-shell', {
   name: 'app-shell',
   template: '#app-shell-template',
   props: {
-    // shell: Object,
   },
   data() {
     return {}
@@ -12,4 +11,4 @@ export const AppShell = {
   methods: {},
   computed: {},
   mounted() {}
-}
+})

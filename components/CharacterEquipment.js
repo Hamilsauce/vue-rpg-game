@@ -1,24 +1,21 @@
 import { store } from '../store/index.js'
 
-export const CharacterEquipment = {
+export const CharacterEquipment = Vue.component('character-equipment', {
   name: 'character-equipment',
   template: '#character-equipment-template',
-  props: {
-    // equipmentSlots: Array,
-  },
+  props: {},
   data() {
     return {}
   },
   methods: {
     handleSlotClick(event) {
       const selectedItem = store.getters.selectedItem
-      // const selectedItem = store.getters.selectedItem
       if (selectedItem && event.slotType !== selectedItem.itemType) return
 
       store.dispatch('setEquipmentSlotItem', { slotId: event.id })
-      if (selectedItem !== null && !event.currentItemId) {
+      // if (selectedItem !== null && !event.currentItemId) {
 
-      }
+      // }
     }
   },
   computed: {
@@ -27,4 +24,4 @@ export const CharacterEquipment = {
     }
   },
   mounted() {}
-}
+})

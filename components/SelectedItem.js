@@ -1,6 +1,6 @@
 import { store } from '../store/index.js'
 
-export const SelectedItem = {
+export const SelectedItem = Vue.component('selected-item',{
   name: 'selected-item',
   template: '#selected-item-template',
   props: {
@@ -14,4 +14,4 @@ export const SelectedItem = {
     selectedItem() { return store.getters.selectedItem }
   },
   mounted() {}
-}
+});

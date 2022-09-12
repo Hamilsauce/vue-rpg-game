@@ -1,6 +1,6 @@
 // import {store} from '../store/index.js'
 
-export const CharacterScreen = {
+export const CharacterScreen = Vue.component('character-screen',{
   name: 'character-screen',
   template: '#character-screen-template',
   props: {
@@ -20,3 +20,4 @@ export const CharacterScreen = {
   },
   mounted() {}
 }
+)

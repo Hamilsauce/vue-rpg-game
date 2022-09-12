@@ -34,13 +34,7 @@ export const routerModule = {
       component: CharacterScreen,
       name: 'character-screen',
       // props: true
-		},
-  //   {
-  //     path: '/add-shift-view',
-  //     component: AddShiftView,
-  //     name: 'add-shift-view',
-  //     props: true
-		// },
+		}
 	]
 };
 

@@ -1,6 +1,6 @@
 import { store } from '../store/index.js'
 
-export const LandingScreen = {
+export const LandingScreen = Vue.component('landing-screen', {
   name: 'landing-screen',
   template: '#landing-screen-template',
   props: {},
@@ -12,12 +12,10 @@ export const LandingScreen = {
   methods: {},
   computed: {
     health() {
-      console.log('health in detail' , this.stats.health);
       return this.stats.health
     },
     damage() { return this.stats.damage },
     defense() { return this.stats.defense },
   },
-  mounted() {
-  }
-}
+  mounted() {}
+})

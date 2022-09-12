@@ -1,6 +1,6 @@
 import { store } from '../store/index.js'
 
-export const CharacterDetail = {
+export const CharacterDetail = Vue.component('character-detail', {
   name: 'character-detail',
   template: '#character-detail-template',
   props: {},
@@ -11,7 +11,7 @@ export const CharacterDetail = {
   },
   methods: {
     handlePropChange(e) {
-      console.log('handlePropChange', { e })
+      store.dispatch('setCharacterName', e.value)
     }
   },
   computed: {
@@ -21,4 +21,4 @@ export const CharacterDetail = {
     defense() { return this.stats.defense },
   },
   mounted() {}
-}
+})

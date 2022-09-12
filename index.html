@@ -79,20 +79,28 @@
     </div>
   </template>
 
-
-
   <template id="bottom-bar-template">
+  
     <div id="bottom-bar">
-      BottomBar
+      <div class="button-container">
+        <button @click="routeToHome()" class="screen-button">Home</button>
+        <button @click="routeToCharacterScreen()" class="screen-button">Character</button>
+      </div>
     </div>
   </template>
 
   <template id="editable-property-template">
-    <input class="editable-property" type="text" v-model="value"/>
+    <div class="editable-property" @click="handleClick($event)">
+      <input :disabled="!editable" class="editable-property-input" type="text" v-model="prop" />
+      <button v-if="editable" class="editable-property-confirm">OK</button>
+    </div>
   </template>
 
   <template id="app-shell-template">
     <div id="app-shell">
+      <!-- <div>
+        
+      </div> -->
       <router-view></router-view>
       <bottom-bar></bottom-bar>
     </div>
@@ -118,8 +126,10 @@
 
   <template id="character-detail-template">
     <div id="character-detail">
-      <div id="character-name"></div>
-      <editable-property @editableproperty:change="handlePropChange($event)" id="character-name" :name="name"></editable-property>
+      <!-- <div id="character-name"></div> -->
+
+      <editable-property @editable-property-change="handlePropChange($event)" id="character-name" :value="name"></editable-property>
+      
       <div id="character-stats">
         <div id="character-health">
           <div class="label">HP</div>
