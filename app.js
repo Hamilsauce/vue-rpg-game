@@ -22,9 +22,21 @@ const router = new VueRouter(routerModule)
 const app = new Vue({
   router: router,
   data() {
-    return {}
+    return {
+    
+    }
   },
   computed: {},
-  created() {},
-  mounted() {}
+  methods: {
+    beforeUnload(){
+    store.dispatch('recordGameTime')
+      
+    }
+  },
+  created() {
+    window.addEventListener('beforeunload', this.beforeUnload);
+  },
+  mounted() {
+    store.dispatch('initialize')
+  }
 }).$mount('#app');

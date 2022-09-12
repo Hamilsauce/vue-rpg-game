@@ -6,10 +6,17 @@ export const LandingScreen = Vue.component('landing-screen', {
   props: {},
   data() {
     return {
+      newGameName: '',
       stats: store.getters.stats,
     }
   },
-  methods: {},
+  methods: {
+    handleSubmit(e) {
+      
+      console.log('handleSubmit, game name', this.newGameName)
+     this.newGameName = ''; 
+    }
+  },
   computed: {
     health() {
       return this.stats.health

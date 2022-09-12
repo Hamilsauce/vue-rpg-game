@@ -13,6 +13,15 @@ const loadState = (localStorageKey = LOCAL_STORE_KEY) => {
   return state;
 }
 
+const startGameTime = (state, interval = 1000) => {
+  // state.playTime = (+state.playTime ? state.playTime : 0) + interval;
+  console.log('interval', state)
+  state.playTime = +state.playTime || interval
+  state.playTime = state.playTime + interval
+
+  return state;
+}
+
 const storeObj = {
   state: loadState(LOCAL_STORE_KEY),
   mutations: {
@@ -57,12 +66,38 @@ const storeObj = {
       state.character.name = data;
     },
 
+    updateStartTime(state, ms) {
+      state.startTime = ms;
+    },
+    
+    updatePlayTime(state, ms) {
+      state.playTime = ms;
+    },
+    
     updateActiveRoute(state, data) {
       state.activeRoute = data;
-    }
+    },
   },
 
   actions: {
+    initialize({ state, commit }) {
+      // const start = () => startGameTime(state, interval)
+      // state.startTime = Date.now();
+      commit('updateStartTime', Date.now())
+      console.log('state.playTime', state.playTime);
+    },
+    
+    recordGameTime({ state, commit }) {
+      // const start = () => startGameTime(state, interval)
+
+      const gameTime = Date.now() - state.startTime;
+      const playTime = (+state.playTime || 0) + gameTime;
+      commit('updatePlayTime', playTime)
+      // state.startTime = null;
+      commit('updateStartTime', null)
+      
+    },
+
     setEquipmentSlotItem({ dispatch, commit, state, }, { slotId }) {
       const slot = state.character.equipmentSlots.find(_ => _.id === slotId);
 
