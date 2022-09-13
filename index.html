@@ -79,7 +79,16 @@
           </form>
         </div>
         <div id="existing-games-container">
-          Existing Games
+          <div id="existing-games-title">Saved Games</div>
+          <div id="game-list">
+            <div class="container game-list">
+              <div class="game-list-item" @click="handleGameClick(game.gameId)" key="game.gameId" v-for="game in games" :game="game">
+                <div class="game-label">{{ game.gameLabel }}</div>
+                <!-- <div class="game-label">{{ game.character.name }}</div> -->
+              </div>
+            </div>
+            <!-- <selected-item></selected-item> -->
+          </div>
         </div>
       </div>
 
@@ -155,6 +164,15 @@
     <div id="character-equipment">
       <div class="container">
         <item-slot @itemslot:click="handleSlotClick($event)" key="slot.id" v-for="slot in equipmentSlots" :slot="slot"></item-slot>
+      </div>
+      <!-- <selected-item></selected-item> -->
+    </div>
+  </template>
+
+  <template id="game-list-template">
+    <div id="game-list">
+      <div class="container">
+        <div itemslot:click="handleSlotClick($event)" key="game.game.Id" v-for="game in games" :game="game"></div>
       </div>
       <!-- <selected-item></selected-item> -->
     </div>

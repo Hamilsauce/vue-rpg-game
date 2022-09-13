@@ -1,6 +1,6 @@
 import { store } from '../store/index.js'
 
-export const SelectedItem = Vue.component('selected-item',{
+export const SelectedItem = Vue.component('selected-item', {
   name: 'selected-item',
   template: '#selected-item-template',
   props: {
