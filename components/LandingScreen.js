@@ -12,9 +12,9 @@ export const LandingScreen = Vue.component('landing-screen', {
   },
   methods: {
     handleSubmit(e) {
-      store.dispatch('setNewGame',this.newGameName)
+      store.dispatch('setNewGame', this.newGameName)
       console.log('handleSubmit, game name', this.newGameName)
-     this.newGameName = ''; 
+      this.newGameName = '';
     },
     handleGameClick(gameId) {
       store.dispatch('setActiveGame', gameId)
@@ -22,9 +22,9 @@ export const LandingScreen = Vue.component('landing-screen', {
     },
   },
   computed: {
-    // health() {
-    //   return this.stats.health
-    // },
+    games() {
+      return Object.values(store.getters.games)
+    },
   },
   mounted() {}
 })

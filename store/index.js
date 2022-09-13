@@ -5,6 +5,7 @@ const LOCAL_STORE_KEY = 'game-char-state'
 
 const loadState = (localStorageKey = LOCAL_STORE_KEY) => {
   const state = JSON.parse(localStorage.getItem(localStorageKey)) || INIT_GAME_STATE();
+
   // state.itemSelectionStack = state.itemSelectionStack && state.itemSelectionStack.selectedItems !== null ?
   //   SelectedItemStack.create(6, state.itemSelectionStack.selectedItemIds) :
   //   SelectedItemStack.create(6);
@@ -151,7 +152,12 @@ const storeObj = {
       state.isDefaultInventory = false;
     },
 
-    saveToLocalStorage({ state }) { localStorage.setItem(LOCAL_STORE_KEY, JSON.stringify(state)); },
+    saveToLocalStorage({ state }) {
+      localStorage.setItem(LOCAL_STORE_KEY, JSON.stringify(state));
+      Object.assign(state, loadState(LOCAL_STORE_KEY));
+      console.log('state', state)
+
+    },
 
     setCharacterName({ commit, dispatch }, changes) {
       commit('updateCharacterName', changes)
@@ -211,7 +217,10 @@ const storeObj = {
     },
 
     games(state, getters) {
-      return Object.values(state.games) || [];
+      console.log('Object.values(state.games) ', Object.values(state.games) )
+      const games = state.games
+      return games;
+      return Object.values(games) || [];
     },
 
     gameKeys(state, getters) {

@@ -82,7 +82,7 @@
           <div id="existing-games-title">Saved Games</div>
           <div id="game-list">
             <div class="container game-list">
-              <div class="game-list-item" @click="handleGameClick(game.gameId)" key="game.gameId" v-for="game in games" :game="game">
+              <div class="game-list-item" @click="handleGameClick(game.gameId)" :key="game.gameId" v-for="game in games" :game="game">
                 <div class="game-label">{{ game.gameLabel }}</div>
                 <!-- <div class="game-label">{{ game.character.name }}</div> -->
               </div>
