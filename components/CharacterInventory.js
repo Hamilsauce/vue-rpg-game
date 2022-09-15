@@ -1,6 +1,6 @@
 import { store } from '../store/index.js'
 
-export const CharacterInventory = Vue.component('character-inventory',{
+export const CharacterInventory = Vue.component('character-inventory', {
   name: 'character-inventory',
   template: '#character-inventory-template',
   props: {},

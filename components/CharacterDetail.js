@@ -16,9 +16,9 @@ export const CharacterDetail = Vue.component('character-detail', {
   },
   computed: {
     name() { return store.getters.characterName },
-    health() { return this.stats.health },
-    damage() { return this.stats.damage },
-    defense() { return this.stats.defense },
+    health() { return store.getters.stats.health },
+    damage() { return store.getters.stats.damage },
+    defense() { return store.getters.stats.defense },
   },
   mounted() {}
 })

@@ -17,6 +17,8 @@
   <link rel="stylesheet" href="./style.css" type="text/css" media="all" />
   <link rel="stylesheet" href="./old-style.css" type="text/css" media="all" />
   <link rel="stylesheet" href="./css/landing-screen.css" type="text/css" media="all" />
+  <link rel="stylesheet" href="./css/game-list.css" type="text/css" media="all" />
+  <link rel="stylesheet" href="./css/top-bar.css" type="text/css" media="all" />
 
   <!-- libraries -->
   <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
@@ -39,34 +41,38 @@
 
   <script src="app.js" type="module"></script>
 
-
-  <template id="selected-item-template">
-    <div class="selected-item">
-      <div class="selected-item-slot">
-        <inventory-item v-if="selectedItem" :item="selectedItem"></inventory-item>
-      </div>
-      <div class="selected-item-area">
-        <!-- <inventory-item v-if="selectedItem" :item="selectedItem"></inventory-item> -->
-      </div>
-      <!-- <h2>{{_currentShow}}</h2> -->
-      <!-- <div v-for="question in _currentShow">{{question.category}}</div> -->
+  <template id="app-shell-template">
+    <div id="app-shell">
+      <top-bar :title="screenTitle"></top-bar>
+      <router-view></router-view>
+      <bottom-bar></bottom-bar>
     </div>
   </template>
 
 
-  <template id="character-screen-template">
-    <div id="character-screen">
-      <character-detail></character-detail>
-      <character-equipment :equipment-slots="equipmentSlots"></character-equipment>
-      <character-inventory></character-inventory>
+  <template id="top-bar-template">
+    <div id="top-bar">
+      <div id="top-bar-left">L</div>
+      <div id="top-bar-center">{{title}}</div>
+      <div id="top-bar-right">R</div>
     </div>
   </template>
+
+  <template id="bottom-bar-template">
+    <div id="bottom-bar">
+      <div class="button-container">
+        <button @click="routeToHome()" class="screen-button">Home</button>
+        <button @click="routeToCharacterScreen()" class="screen-button">Character</button>
+      </div>
+    </div>
+  </template>
+
 
   <template id="landing-screen-template">
     <div id="landing-screen">
-      <div id="landing-title">
+      <!-- <div id="landing-title">
         SWEET RPG GAME
-      </div>
+      </div> -->
 
       <div id="landing-body">
         <div id="create-game-form-container">
@@ -83,7 +89,10 @@
           <div id="game-list">
             <div class="container game-list">
               <div class="game-list-item" @click="handleGameClick(game.gameId)" :key="game.gameId" v-for="game in games" :game="game">
-                <div class="game-label">{{ game.gameLabel }}</div>
+                <div class="label">Character</div>
+                <div class="game-label">{{ game.character.name }}</div>
+                <div class="label">Play Time</div>
+                <div class="play-time">{{ game.playTime }}</div>
                 <!-- <div class="game-label">{{ game.character.name }}</div> -->
               </div>
             </div>
@@ -91,31 +100,81 @@
           </div>
         </div>
       </div>
-
-
     </div>
   </template>
 
-  <template id="bottom-bar-template">
-    <div id="bottom-bar">
-      <div class="button-container">
-        <button @click="routeToHome()" class="screen-button">Home</button>
-        <button @click="routeToCharacterScreen()" class="screen-button">Character</button>
+  <template id="game-list-template">
+    <div id="game-list">
+      <div id="game-list-title">{{title}}</div>
+      <div class="container">
+        <game-list-item itemslot:click="handleSlotClick($event)" key="game.game.Id" v-for="game in games" :game="game"></game-list-item>
+      </div>
+      <!-- <selected-item></selected-item> -->
+    </div>
+  </template>
+
+  <template id="game-list-item-template">
+    <div id="game-list-item">
+      <div class="label">Character</div>
+      <div class="game-label">{{ game.character.name }}</div>
+      <div class="label">Play Time</div>
+      <div class="play-time">{{ game.playTime }}</div>
+    </div>
+  </template>
+
+
+  <template id="character-screen-template">
+    <div id="character-screen">
+      <character-detail></character-detail>
+      <character-equipment></character-equipment>
+      <character-inventory></character-inventory>
+    </div>
+  </template>
+
+  <template id="character-detail-template">
+    <div id="character-detail">
+      <editable-property @editable-property-change="handlePropChange($event)" id="character-name" :value="name" label="Name"></editable-property>
+      <div id="character-stats">
+        <div id="character-health">
+          <div class="label">HP</div>
+          <div class="value">{{health}}</div>
+        </div>
+        <div id="character-damage">
+          <div class="label">DMG</div>
+          <div class="value">{{damage}}</div>
+        </div>
+        <div id="character-armor">
+          <div class="label">ARMOR</div>
+          <div class="value">{{defense}}</div>
+        </div>
       </div>
     </div>
   </template>
 
-  <template id="editable-property-template">
-    <div class="editable-property" @click="handleClick($event)">
-      <input :disabled="!editable" class="editable-property-input" type="text" v-model="prop" />
-      <button v-if="editable" class="editable-property-confirm">OK</button>
+  <template id="character-stat-template">
+    <div id="character-stat">
+      <div class="label">{{label}}</div>
+      <div class="value">{{value}}</div>
     </div>
   </template>
 
-  <template id="app-shell-template">
-    <div id="app-shell">
-      <router-view></router-view>
-      <bottom-bar></bottom-bar>
+  <template id="character-equipment-template">
+    <div id="character-equipment">
+      <div class="container">
+        <item-slot @itemslot:click="handleSlotClick($event)" key="slot.id" v-for="slot in equipmentSlots" :slot="slot"></item-slot>
+      </div>
+      <!-- <selected-item></selected-item> -->
+    </div>
+  </template>
+
+  <template id="character-inventory-template">
+    <div id="character-inventory">
+
+      <div id="character-inventory-slots" class="container">
+        <item-slot @itemslot:click="handleSlotClick($event)" key="slot.id" v-for="slot in inventorySlots" :slot="slot"></item-slot>
+      </div>
+      <!-- <div id="selected-item"></div> -->
+      <selected-item></selected-item>
     </div>
   </template>
 
@@ -137,58 +196,29 @@
     </div>
   </template>
 
-  <template id="character-detail-template">
-    <div id="character-detail">
-      <!-- <div id="character-name"></div> -->
-
-      <editable-property @editable-property-change="handlePropChange($event)" id="character-name" :value="name"></editable-property>
-
-      <div id="character-stats">
-        <div id="character-health">
-          <div class="label">HP</div>
-          <div class="value">{{health}}</div>
-        </div>
-        <div id="character-damage">
-          <div class="label">DMG</div>
-          <div class="value">{{damage}}</div>
-        </div>
-        <div id="character-armor">
-          <div class="label">ARMOR</div>
-          <div class="value">{{defense}}</div>
-        </div>
+  <template id="selected-item-template">
+    <div class="selected-item">
+      <div class="selected-item-slot">
+        <inventory-item v-if="selectedItem" :item="selectedItem"></inventory-item>
       </div>
+      <div class="selected-item-area">
+        <!-- <inventory-item v-if="selectedItem" :item="selectedItem"></inventory-item> -->
+      </div>
+      <!-- <h2>{{_currentShow}}</h2> -->
+      <!-- <div v-for="question in _currentShow">{{question.category}}</div> -->
     </div>
   </template>
 
-  <template id="character-equipment-template">
-    <div id="character-equipment">
-      <div class="container">
-        <item-slot @itemslot:click="handleSlotClick($event)" key="slot.id" v-for="slot in equipmentSlots" :slot="slot"></item-slot>
+
+  <template id="editable-property-template">
+    <div class="editable-property" @click="handleClick($event)">
+      <div class="editable-property-label">{{label}}</div>
+      <div class="control-group">
+        <input :disabled="!editable" class="editable-property-input" type="text" v-model="prop" />
+        <button v-if="editable" class="editable-property-confirm">OK</button>
       </div>
-      <!-- <selected-item></selected-item> -->
     </div>
   </template>
-
-  <template id="game-list-template">
-    <div id="game-list">
-      <div class="container">
-        <div itemslot:click="handleSlotClick($event)" key="game.game.Id" v-for="game in games" :game="game"></div>
-      </div>
-      <!-- <selected-item></selected-item> -->
-    </div>
-  </template>
-
-  <template id="character-inventory-template">
-    <div id="character-inventory">
-
-      <div id="character-inventory-slots" class="container">
-        <item-slot @itemslot:click="handleSlotClick($event)" key="slot.id" v-for="slot in inventorySlots" :slot="slot"></item-slot>
-      </div>
-      <!-- <div id="selected-item"></div> -->
-      <selected-item></selected-item>
-    </div>
-  </template>
-
 
 </body>
 

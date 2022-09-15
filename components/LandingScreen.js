@@ -3,7 +3,9 @@ import { store } from '../store/index.js'
 export const LandingScreen = Vue.component('landing-screen', {
   name: 'landing-screen',
   template: '#landing-screen-template',
-  props: {},
+  props: {
+    gameTitle: String
+  },
   data() {
     return {
       newGameName: '',
@@ -17,14 +19,18 @@ export const LandingScreen = Vue.component('landing-screen', {
       this.newGameName = '';
     },
     handleGameClick(gameId) {
-      store.dispatch('setActiveGame', gameId)
-      this.$router.push('/character')
+      store.dispatch('setActiveGame', gameId);
+      // store.dispatch('initializeInventory');
+
+      this.$router.push('/character');
     },
   },
   computed: {
     games() {
-      return Object.values(store.getters.games)
+      return Object.values(store.getters.games);
     },
   },
-  mounted() {}
+  mounted() {
+    this.$emit('screen:load', {title: 'Landing'})
+  }
 })

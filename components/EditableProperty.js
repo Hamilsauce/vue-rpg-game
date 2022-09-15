@@ -1,11 +1,12 @@
 import { store } from '../store/index.js'
 
-export const EditableProperty = Vue.component('editable-property',{
+export const EditableProperty = Vue.component('editable-property', {
   name: 'editable-property',
   template: '#editable-property-template',
   props: {
     name: String,
     value: null,
+    label: String,
   },
   data() {
     return {
@@ -16,14 +17,13 @@ export const EditableProperty = Vue.component('editable-property',{
   methods: {
     handleClick(e) {
       const targ = e.target;
-      console.log('targ.classList.contains(editable-property-confirm)', targ.classList.contains('editable-property-confirm'))
-      console.log('this.editable', this.editable)
 
       if (!this.editable) {
         this.editable = true;
 
         setTimeout(() => targ.focus(), 0)
       }
+    
       if (this.editable && targ.classList.contains('editable-property-confirm')) {
         this.editable = false;
 

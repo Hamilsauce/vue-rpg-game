@@ -139,7 +139,7 @@ const storeObj = {
     },
 
     initializeInventory({ getters, state }) {
-      if (!state.isDefaultInventory) return;
+      if (!getters.activeGame.isDefaultInventory) return;
 
       getters.unequippedItems.forEach((item, i) => {
         const slot = state.games[state.activeGameId].character.inventory.slots[i]
@@ -149,7 +149,7 @@ const storeObj = {
         state.games[state.activeGameId].character.inventory.slots[i].currentItem = item.id;
       });
 
-      state.isDefaultInventory = false;
+      getters.activeGame.isDefaultInventory = false;
     },
 
     saveToLocalStorage({ state }) {
@@ -185,6 +185,12 @@ const storeObj = {
   getters: {
     inventorySlots(state, getters) { return state.games[state.activeGameId].character.inventory.slots; },
 
+    json(state, getters) {
+
+      download('game-state1.json', JSON.stringify(state, null, 2))
+      return state.games[state.activeGameId].character.inventory.slots;
+    },
+
     equipmentSlots(state, getters) { return state.games[state.activeGameId].character.equipmentSlots; },
 
     inventoryItems(state, getters) { return state.games[state.activeGameId].character.inventory.items; },
@@ -217,7 +223,6 @@ const storeObj = {
     },
 
     games(state, getters) {
-      console.log('Object.values(state.games) ', Object.values(state.games) )
       const games = state.games
       return games;
       return Object.values(games) || [];

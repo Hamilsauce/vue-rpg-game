@@ -1,0 +1,23 @@
+#top-bar {
+  display: grid;
+  grid-template-rows: 50px;
+  grid-template-columns: auto 1fr auto;
+  /* justify-content: center; */
+  align-items: center;
+  gap: 0px;
+  width: 100%;
+  height: 50px;
+  padding: 4px 8px;
+  color: #EBEBEB;
+  
+}
+#top-bar-center {
+  /* display: grid; */
+  grid-template-rows: auto;
+  grid-template-columns: auto 1fr auto;
+  /* justify-content: center; */
+  /* align-items: center; */
+  gap: 0px;
+  width: 100%;
+  text-align: center;
+}
