@@ -67,12 +67,20 @@ const storeObj = {
       state.games[game.gameId] = game;
     },
 
+    deleteGame(state, gameId) {
+      console.log('STORE DELETE GAME MUTATION', { gameId });
+      delete state.games[gameId];
+      console.log('STORE DELETE GAME state.games[gameId];', state.games[gameId]);
+    },
+
     updateStartTime(state, ms) {
       state.startTime = ms;
     },
 
     updateActiveGameId(state, id) {
+
       state.activeGameId = id;
+      state.games[state.activeGameId].lastPlayed = Date.now();
     },
 
     updatePlayTime(state, ms) {
@@ -85,12 +93,16 @@ const storeObj = {
   },
 
   actions: {
-    initialize({ state, commit, getters }) {
+    initialize({ dispatch, state, commit, getters }) {
       commit('updateStartTime', Date.now())
       console.log('state.playTime', state.playTime);
     },
+    deleteGame({ dispatch, state, commit, getters }, { gameId }) {
+      commit('deleteGame', gameId)
+      dispatch('saveToLocalStorage');
+    },
 
-    recordGameTime({ state, commit, getters }) {
+    recordGameTime({ dispatch, state, commit, getters }) {
       // const start = () => startGameTime(state, interval)
 
       const gameTime = Date.now() - state.startTime;
@@ -169,8 +181,8 @@ const storeObj = {
       dispatch('saveToLocalStorage');
     },
 
-    setNewGame({ commit, dispatch }, gameName) {
-      const newGame = DEFAULT_NEW_GAME(gameName || 'Unnamed Game')
+    setNewGame({ commit, dispatch }, characterName) {
+      const newGame = DEFAULT_NEW_GAME(characterName || 'Unnamed Game')
       commit('createGame', newGame)
       dispatch('setActiveGame', newGame.gameId);
       dispatch('saveToLocalStorage');
@@ -225,7 +237,7 @@ const storeObj = {
     games(state, getters) {
       const games = state.games
       return games;
-      return Object.values(games) || [];
+      return (Object.values(games) || []) .sort((a, b) => b.lastPlayed - a.lastPlayed);
     },
 
     gameKeys(state, getters) {

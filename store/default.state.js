@@ -213,16 +213,17 @@ export const INIT_GAME_STATE = () => ({
   }
 });
 
-export const DEFAULT_NEW_GAME = (gameName) => ({
+export const DEFAULT_NEW_GAME = (characterName) => ({
   // itemSelectionStack: SelectedItemStack.create(6),
   gameId: utils.uuid(),
-  gameLabel: gameName,
+  gameLabel: 'New Game',
   isDefaultInventory: true,
   startTime: null,
   playTime: 0,
+  lastPlayed: Date.now(),
   selectedItemId: null,
   character: {
-    name: 'Poop Dog',
+    name: characterName || 'Poop Dog',
     stats: DEFAULT_STATS(),
     inventory: {
       slots: [

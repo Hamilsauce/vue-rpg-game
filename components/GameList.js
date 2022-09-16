@@ -3,18 +3,23 @@ import { store } from '../../store/index.js'
 export const GameList = Vue.component('game-list', {
   name: 'game-list',
   template: '#game-list-template',
-  props: {
-    // bar: Object,
-  },
   data() {
-    return {}
+    return {
+      title: 'saved games'
+    }
   },
   methods: {
-    // routeToCharacterScreen() {
-    //   this.$router.push('/character');
-
-    // }
+    handleGameSelected({ gameId }) {
+      store.dispatch('setActiveGame', gameId);
+      this.$router.push('/character');
+    },
+    handleGameLongPress({ gameId }) {
+      store.dispatch('deleteGame', { gameId });
+    },
   },
-  computed: {},
-  mounted() {}
+  computed: {
+    games() {
+      return (Object.values(store.getters.games) || []).sort((a, b) => b.lastPlayed - a.lastPlayed);
+    }
+  }
 })

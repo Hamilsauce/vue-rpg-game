@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="./style.css" type="text/css" media="all" />
   <link rel="stylesheet" href="./old-style.css" type="text/css" media="all" />
   <link rel="stylesheet" href="./css/landing-screen.css" type="text/css" media="all" />
+  <link rel="stylesheet" href="./css/game-screen.css" type="text/css" media="all" />
   <link rel="stylesheet" href="./css/game-list.css" type="text/css" media="all" />
   <link rel="stylesheet" href="./css/top-bar.css" type="text/css" media="all" />
 
@@ -42,83 +43,86 @@
   <script src="app.js" type="module"></script>
 
   <template id="app-shell-template">
-    <div id="app-shell">
+    <main id="app-shell">
       <top-bar :title="screenTitle"></top-bar>
       <router-view></router-view>
       <bottom-bar></bottom-bar>
-    </div>
+    </main>
   </template>
 
 
   <template id="top-bar-template">
-    <div id="top-bar">
+    <header id="top-bar">
       <div id="top-bar-left">L</div>
       <div id="top-bar-center">{{title}}</div>
       <div id="top-bar-right">R</div>
-    </div>
+    </header>
   </template>
 
   <template id="bottom-bar-template">
-    <div id="bottom-bar">
+    <footer id="bottom-bar">
       <div class="button-container">
         <button @click="routeToHome()" class="screen-button">Home</button>
         <button @click="routeToCharacterScreen()" class="screen-button">Character</button>
+        <button @click="routeToGameScreen()" class="screen-button">World</button>
       </div>
-    </div>
+    </footer>
   </template>
 
 
   <template id="landing-screen-template">
     <div id="landing-screen">
-      <!-- <div id="landing-title">
-        SWEET RPG GAME
-      </div> -->
-
       <div id="landing-body">
-        <div id="create-game-form-container">
+        <section id="create-game-form-container">
           <form @submit.prevent="handleSubmit" id="create-game-form">
             <label for="create-game-name-input">Create Game</label>
             <div class="control-group">
-              <input v-model="newGameName" type="text" name="create-game-name-input" id="create-game-name-input" value="" placeholder="New Game..." />
+              <input v-model="newCharacterName" type="text" name="create-game-name-input" id="create-game-name-input" value="" placeholder="Character Name..." />
               <input type="submit" name="create-game-submit" id="create-game-submit" value="+" />
             </div>
           </form>
-        </div>
-        <div id="existing-games-container">
-          <div id="existing-games-title">Saved Games</div>
-          <div id="game-list">
-            <div class="container game-list">
-              <div class="game-list-item" @click="handleGameClick(game.gameId)" :key="game.gameId" v-for="game in games" :game="game">
-                <div class="label">Character</div>
-                <div class="game-label">{{ game.character.name }}</div>
-                <div class="label">Play Time</div>
-                <div class="play-time">{{ game.playTime }}</div>
-                <!-- <div class="game-label">{{ game.character.name }}</div> -->
-              </div>
-            </div>
-            <!-- <selected-item></selected-item> -->
-          </div>
-        </div>
+        </section>
+        <section id="existing-games-container">
+          <game-list></game-list>
+        </section>
       </div>
     </div>
   </template>
 
   <template id="game-list-template">
     <div id="game-list">
-      <div id="game-list-title">{{title}}</div>
-      <div class="container">
-        <game-list-item itemslot:click="handleSlotClick($event)" key="game.game.Id" v-for="game in games" :game="game"></game-list-item>
+      <div id="existing-games-title">{{title}}</div>
+      <div class="container game-list">
+        <game-list-item @gameitem:longpress="handleGameLongPress($event)" @game:selected="handleGameSelected($event)" :key="game.gameId" v-for="game in games" :game="game"></game-list-item>
       </div>
-      <!-- <selected-item></selected-item> -->
     </div>
   </template>
 
   <template id="game-list-item-template">
-    <div id="game-list-item">
+    <div ref="gameListItem" class="game-list-item" @click="handleClick($event)">
       <div class="label">Character</div>
       <div class="game-label">{{ game.character.name }}</div>
       <div class="label">Play Time</div>
       <div class="play-time">{{ game.playTime }}</div>
+    </div>
+  </template>
+
+  <!-- *** CURRENT *** -->
+
+  <template id="game-screen-template">
+    <div id="game-screen">
+      <div class="game-canvas">
+        <div class="game-canvas-layer background"></div>
+        <div class="game-canvas-layer foreground">
+          <div id="pawn1">
+
+          </div>
+        </div>
+
+      </div>
+      <!-- <character-detail></character-detail> -->
+      <!-- <character-equipment></character-equipment> -->
+      <!-- <character-inventory></character-inventory> -->
     </div>
   </template>
 

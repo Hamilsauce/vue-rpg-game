@@ -16,6 +16,10 @@ export const BottomBar = Vue.component('bottom-bar', {
     routeToCharacterScreen() {
       this.$router.push('/character');
 
+    },
+    routeToGameScreen() {
+      this.$router.push('/game');
+
     }
   },
   computed: {},

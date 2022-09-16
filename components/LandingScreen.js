@@ -8,15 +8,15 @@ export const LandingScreen = Vue.component('landing-screen', {
   },
   data() {
     return {
-      newGameName: '',
+      newCharacterName: '',
       games: store.getters.games,
     }
   },
   methods: {
     handleSubmit(e) {
-      store.dispatch('setNewGame', this.newGameName)
-      console.log('handleSubmit, game name', this.newGameName)
-      this.newGameName = '';
+      store.dispatch('setNewGame', this.newCharacterName)
+      console.log('handleSubmit, game name', this.newCharacterName)
+      this.newCharacterName = '';
     },
     handleGameClick(gameId) {
       store.dispatch('setActiveGame', gameId);
