@@ -4,22 +4,22 @@ import { routerModule } from './router/index.js';
 import ham from 'https://hamilsauce.github.io/hamhelper/hamhelper1.0.0.js';
 const { download, array, utils, text } = ham;
 
-import {
-  LandingScreen,
-  CharacterScreen,
-  CharacterInventory,
-  CharacterEquipment,
-  CharacterDetail,
-  InventoryItem,
-  SelectedItem,
-  GameListItem,
-  GameList,
-  ItemSlot,
-  AppShell,
-  TopBar,
-  BottomBar,
-  EditableProperty,
-} from './components/index.js';
+// import {
+//   LandingScreen,
+//   CharacterScreen,
+//   CharacterInventory,
+//   CharacterEquipment,
+//   CharacterDetail,
+//   InventoryItem,
+//   SelectedItem,
+//   GameListItem,
+//   GameList,
+//   ItemSlot,
+//   AppShell,
+//   TopBar,
+//   BottomBar,
+//   EditableProperty,
+// } from './components/index.js';
 
 const vkb = navigator.virtualKeyboard;
 vkb.overlaysContent = true;
@@ -32,8 +32,6 @@ const app = new Vue({
   router: router,
   data() {
     return {
-      // gameTitle: gameTitle,
-      // screenTitle: gameTitle,
     }
   },
   computed: {},
@@ -49,8 +47,6 @@ const app = new Vue({
   },
   mounted() {
     store.dispatch('initialize');
-    console.log('store.getters.games', store.getters.games)
   },
 }).$mount('#app')
 // app.use(store)
-console.warn('store', store)

@@ -16,6 +16,7 @@ export const CharacterDetail = Vue.component('character-detail', {
   },
   computed: {
     name() { return store.getters.characterName },
+    gold() { return store.getters.gold },
     health() { return store.getters.stats.health },
     damage() { return store.getters.stats.damage },
     defense() { return store.getters.stats.defense },

@@ -18,6 +18,7 @@ export const DEFAULT_STATE = () => ({
   selectedItemId: null,
   character: {
     name: 'Poop Dog',
+    gold: 100,
     stats: DEFAULT_STATS(),
     inventory: {
       slots: [
@@ -63,10 +64,11 @@ export const INIT_GAME_STATE = () => ({
       gameLabel: "Jakes First Game",
       isDefaultInventory: false,
       startTime: 1663089978326,
-      playTime: 60000,
+      playTime: 0,
       selectedItemId: null,
       character: {
         name: "Poop Dog5",
+        gold: 100,
         stats: {
           health: 10,
           defense: 0,
@@ -218,12 +220,13 @@ export const DEFAULT_NEW_GAME = (characterName) => ({
   gameId: utils.uuid(),
   gameLabel: 'New Game',
   isDefaultInventory: true,
-  startTime: null,
+  startTime: 0,
   playTime: 0,
   lastPlayed: Date.now(),
   selectedItemId: null,
   character: {
     name: characterName || 'Poop Dog',
+    gold: 100,
     stats: DEFAULT_STATS(),
     inventory: {
       slots: [
@@ -259,4 +262,19 @@ export const DEFAULT_NEW_GAME = (characterName) => ({
       { id: 8, label: 'Aux 2', itemType: 'gear', currentItem: null },
     ],
   }
+});
+
+
+export const DEFAULT_ENEMY_STATE = (options = {}) => ({
+  health: 7,
+  defense: 1,
+  damage: 2,
+  type: '',
+  name: '',
+});
+
+export const DEFAULT_BATTLE_STATE = () => ({
+  health: 10,
+  defense: 0,
+  damage: 0,
 });

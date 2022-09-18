@@ -31,5 +31,6 @@ export const AppShell = Vue.component('app-shell', {
   },
   methods: {},
   computed: {},
-  mounted() {},
+  mounted() {
+  },
 });

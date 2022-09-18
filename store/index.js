@@ -229,6 +229,9 @@ const storeObj = {
     selectedItem(state, getters) {
       return getters.activeGame.character.inventory.items.find(_ => _.id === getters.activeGame.selectedItemId);
     },
+    gold(state, getters) {
+      return getters.activeGame.character.gold || 0;
+    },
 
     activeGame(state, getters) {
       return state.games[state.activeGameId] || null;

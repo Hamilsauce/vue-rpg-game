@@ -38,6 +38,7 @@
 
   <main class="app" id="app">
     <app-shell></app-shell>
+    
   </main>
 
   <script src="app.js" type="module"></script>
@@ -64,7 +65,7 @@
       <div class="button-container">
         <button @click="routeToHome()" class="screen-button">Home</button>
         <button @click="routeToCharacterScreen()" class="screen-button">Character</button>
-        <button @click="routeToGameScreen()" class="screen-button">World</button>
+        <button @click="routeToGameScreen()" class="screen-button">Game</button>
       </div>
     </footer>
   </template>
@@ -100,10 +101,22 @@
 
   <template id="game-list-item-template">
     <div ref="gameListItem" class="game-list-item" @click="handleClick($event)">
-      <div class="label">Character</div>
-      <div class="game-label">{{ game.character.name }}</div>
-      <div class="label">Play Time</div>
-      <div class="play-time">{{ game.playTime }}</div>
+      <div class="control-group">
+        <div class="label">Character</div>
+        <div class="character-name">{{ game.character.name }}</div>
+      </div>
+      <div class="control-group">
+        <div class="label">HP</div>
+        <div class="character-name">{{ game.character.stats.health }}</div>
+      </div>
+      <div class="control-group">
+        <div class="label">Gold</div>
+        <div class="character-name">{{ game.character.gold }}</div>
+      </div>
+      <div class="control-group">
+        <div class="label">Last Played</div>
+        <div class="play-time">{{ new Date(game.lastPlayed).toLocaleDateString() }}</div>
+      </div>
     </div>
   </template>
 
@@ -111,18 +124,41 @@
 
   <template id="game-screen-template">
     <div id="game-screen">
-      <div class="game-canvas">
+      <battle-view></battle-view>
+      <!-- <div class="game-canvas">
         <div class="game-canvas-layer background"></div>
         <div class="game-canvas-layer foreground">
           <div id="pawn1">
-
+      
           </div>
         </div>
-
-      </div>
+      
+      </div> -->
       <!-- <character-detail></character-detail> -->
       <!-- <character-equipment></character-equipment> -->
       <!-- <character-inventory></character-inventory> -->
+    </div>
+  </template>
+
+  <template id="battle-view-template">
+    <div id="battle-view">
+      <div class="battle-view-layer background"></div>
+      <div class="battle-view-layer foreground">
+        <div id="pawn1">
+BATTLE VIEW
+        </div>
+      </div>
+    </div>
+  </template>
+  
+  <template id="world-view-template">
+    <div id="world-view">
+      <div class="world-view-layer background"></div>
+      <div class="world-view-layer foreground">
+        <div id="pawn1">
+
+        </div>
+      </div>
     </div>
   </template>
 
@@ -138,6 +174,10 @@
   <template id="character-detail-template">
     <div id="character-detail">
       <editable-property @editable-property-change="handlePropChange($event)" id="character-name" :value="name" label="Name"></editable-property>
+      <div id="character-gold">
+        <div class="label">Gold</div>
+        <div class="value">{{gold}}</div>
+      </div>
       <div id="character-stats">
         <div id="character-health">
           <div class="label">HP</div>
