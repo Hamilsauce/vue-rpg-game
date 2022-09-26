@@ -18,6 +18,7 @@
   <link rel="stylesheet" href="./old-style.css" type="text/css" media="all" />
   <link rel="stylesheet" href="./css/landing-screen.css" type="text/css" media="all" />
   <link rel="stylesheet" href="./css/game-screen.css" type="text/css" media="all" />
+  <link rel="stylesheet" href="./css/battle-view.css" type="text/css" media="all" />
   <link rel="stylesheet" href="./css/game-list.css" type="text/css" media="all" />
   <link rel="stylesheet" href="./css/top-bar.css" type="text/css" media="all" />
 
@@ -38,10 +39,12 @@
 
   <main class="app" id="app">
     <app-shell></app-shell>
-    
+
   </main>
 
   <script src="app.js" type="module"></script>
+
+  <!-- *** SHELL *** -->
 
   <template id="app-shell-template">
     <main id="app-shell">
@@ -50,7 +53,6 @@
       <bottom-bar></bottom-bar>
     </main>
   </template>
-
 
   <template id="top-bar-template">
     <header id="top-bar">
@@ -70,6 +72,7 @@
     </footer>
   </template>
 
+  <!-- *** LANDING *** -->
 
   <template id="landing-screen-template">
     <div id="landing-screen">
@@ -120,37 +123,29 @@
     </div>
   </template>
 
-  <!-- *** CURRENT *** -->
+  <!-- *** GAME SCREEN *** -->
 
   <template id="game-screen-template">
     <div id="game-screen">
-      <battle-view></battle-view>
-      <!-- <div class="game-canvas">
-        <div class="game-canvas-layer background"></div>
-        <div class="game-canvas-layer foreground">
-          <div id="pawn1">
-      
-          </div>
-        </div>
-      
-      </div> -->
-      <!-- <character-detail></character-detail> -->
-      <!-- <character-equipment></character-equipment> -->
-      <!-- <character-inventory></character-inventory> -->
+      <shop-view></shop-view>
+      <!-- <battle-view></battle-view> -->
+    </div>
+  </template>
+
+  <template id="shop-view-template">
+    <div id="shop-view">
+      <div class="shop-view-slot" data-shop-type="gear">SHOP</div>
     </div>
   </template>
 
   <template id="battle-view-template">
     <div id="battle-view">
-      <div class="battle-view-layer background"></div>
-      <div class="battle-view-layer foreground">
-        <div id="pawn1">
-BATTLE VIEW
-        </div>
+      <div class="battle-view-slot" data-combatant="enemy">Enemy</div>
+      <div class="battle-view-slot" data-combatant="player">Player
       </div>
     </div>
   </template>
-  
+
   <template id="world-view-template">
     <div id="world-view">
       <div class="world-view-layer background"></div>

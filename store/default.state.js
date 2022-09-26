@@ -2,7 +2,7 @@
 // const LOCAL_STORE_KEY = 'game-char-state'
 import ham from 'https://hamilsauce.github.io/hamhelper/hamhelper1.0.0.js';
 const { date, array, utils, text } = ham;
-
+import { uuid } from '../lib/uuid.js';
 // console.log('utils', utils)
 export const DEFAULT_STATS = () => ({
   health: 10,
@@ -20,6 +20,7 @@ export const DEFAULT_STATE = () => ({
     name: 'Poop Dog',
     gold: 100,
     stats: DEFAULT_STATS(),
+    id: uuid('character'),
     inventory: {
       slots: [
         { id: 0, label: 'slot 1', itemType: null, currentItem: null },
@@ -67,6 +68,7 @@ export const INIT_GAME_STATE = () => ({
       playTime: 0,
       selectedItemId: null,
       character: {
+        id: uuid('character'),
         name: "Poop Dog5",
         gold: 100,
         stats: {
@@ -217,7 +219,7 @@ export const INIT_GAME_STATE = () => ({
 
 export const DEFAULT_NEW_GAME = (characterName) => ({
   // itemSelectionStack: SelectedItemStack.create(6),
-  gameId: utils.uuid(),
+  gameId: uuid('game'),
   gameLabel: 'New Game',
   isDefaultInventory: true,
   startTime: 0,
@@ -274,7 +276,9 @@ export const DEFAULT_ENEMY_STATE = (options = {}) => ({
 });
 
 export const DEFAULT_BATTLE_STATE = () => ({
-  health: 10,
-  defense: 0,
+  status: 'initial',
+  turn: 0,
   damage: 0,
+  enemies: [],
+  eventLog: [],
 });

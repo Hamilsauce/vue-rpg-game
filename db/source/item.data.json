@@ -1,0 +1,46 @@
+{
+  "data": [
+    {
+      "id": 0,
+      "name": "Health Necklace",
+      "itemType": "gear-head",
+      "modifier": { "health": 2 }
+    },
+    {
+      "id": 1,
+      "name": "Helm of N00b",
+      "itemType": "armor-head",
+      "modifier": { "defense": 1 }
+    },
+    {
+      "id": 3,
+      "name": "Cool Shield",
+      "itemType": "shield",
+      "modifier": { "defense": 1 }
+    },
+    {
+      "id": 4,
+      "name": "Breast Plate",
+      "itemType": "armor-chest",
+      "modifier": { "defense": 3 }
+    },
+    {
+      "id": 5,
+      "name": "Battle Axe",
+      "itemType": "weapon",
+      "modifier": { "damage": 5, "type": "melee" }
+    },
+    {
+      "id": 6,
+      "name": "Lucky Charm",
+      "itemType": "gear",
+      "modifier": { "health": 3 }
+    },
+    {
+      "id": 7,
+      "name": "Boots",
+      "itemType": "armor-feet",
+      "modifier": { "defense": 3 }
+    }
+  ]
+}

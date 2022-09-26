@@ -20,7 +20,10 @@ export const BottomBar = Vue.component('bottom-bar', {
     routeToGameScreen() {
       this.$router.push('/game');
 
-    }
+    },
+    routeToShopScreen() {
+      this.$router.push('/shop');
+    },
   },
   computed: {},
   mounted() {}

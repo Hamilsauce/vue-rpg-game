@@ -1,0 +1,37 @@
+#battle-view {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr;
+  gap: 0px;
+  width: 100%;
+  height: 100%;
+}
+
+.battle-view-slot {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr;
+  gap: 0px;
+  /* width: 100%; */
+  /* height: 100%; */
+}
+
+.battle-view-slot[data-combatant=player] {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr;
+  gap: 0px;
+  /* width: 100%; */
+  /* height: 100%; */
+  background: #225EAC;
+}
+
+.battle-view-slot[data-combatant=enemy] {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr;
+  gap: 0px;
+  /* width: 100%; */
+  /* height: 100%; */
+  background: #AC2222;
+}

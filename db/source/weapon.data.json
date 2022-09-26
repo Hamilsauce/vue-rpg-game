@@ -1,0 +1,15 @@
+{
+  "data": [
+    {
+      "id": "wpn01",
+      "name": "Battle Axe",
+      "itemType": "weapon",
+      "weaponType": "melee",
+      "modifier": {
+        "damage": 5,
+        "type": "melee",
+        "damageType": "blade"
+      }
+    }
+  ]
+}

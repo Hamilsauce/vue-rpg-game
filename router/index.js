@@ -23,7 +23,7 @@ export const routerModule = {
       component: GameScreen,
       name: 'game-screen',
       // props: true
-		}
+		},
 	]
 };
 
